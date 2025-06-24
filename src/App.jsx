@@ -75,13 +75,25 @@ function App() {
     }
   }
 
-  const getResultText = () => {
+  const getResultContent = () => {
     if (totalScore >= 40) {
-      return "你是【探險家】\n風險傾向：高風險偏好\n建議保單：投資型、意外險\n學習建議：多了解理財型保單"
+      return {
+        title: "你是【探險家】",
+        desc: "風險傾向：高風險偏好\n建議保單：投資型、意外險\n學習建議：多了解理財型保單",
+        image: "/images/explorer.jpg"
+      };
     } else if (totalScore >= 25) {
-      return "你是【規劃師】\n風險傾向：中風險中立\n你重視規劃也願意為目標做準備。適合有回報的保障，兼顧醫療與健康風險。\n還本型保單、醫療險是你的夥伴！"
+      return {
+        title: "你是【規劃師】",
+        desc: "風險傾向：中風險偏好\n你重視規劃也願意為目標做準備。適合有回報的保障，兼顧醫療與健康風險。\n還本型保單、醫療險是你的夥伴！",
+        image: "/images/planner.jpg"
+      };
     } else {
-      return "你是【守護者】\n風險傾向：低風險偏好\n「寧可多保一點也不想留下遺憾」\n你適合醫療、重大傷病與意外保障的完整組合！為自己多添一份保障"
+      return {
+        title: "你是【守護者】",
+        desc: "風險傾向：低風險偏好\n「寧可多保一點也不想留下遺憾」\n你適合醫療、重大傷病與意外保障的完整組合！為自己多添一份保障",
+        image: "/images/guardian.jpg"
+      };
     }
   }
 
@@ -96,12 +108,21 @@ function App() {
       border: '2px solid #009765'
     }}>
       <h1 style={{ color: '#009765', textAlign: 'center' }}>Z 世代保險探索測驗</h1>
-      {showResult ? (
-        <div style={{ backgroundColor: '#fff', padding: '1.5rem', borderRadius: '10px' }}>
-          <h2 style={{ color: '#222222' }}>你的總分是：{totalScore} 分</h2>
-          <pre style={{ whiteSpace: 'pre-wrap', fontSize: '1.1rem', color: '#444' }}>{getResultText()}</pre>
-        </div>
-      ) : (
+      {showResult ? (() => {
+        const result = getResultContent();
+        return (
+          <div style={{ backgroundColor: '#fff', padding: '1.5rem', borderRadius: '10px', textAlign: 'center' }}>
+            <h2 style={{ color: '#222222' }}>你的總分是：{totalScore} 分</h2>
+            <img
+              src={result.image}
+              alt="結果圖示"
+              style={{ width: '250px', borderRadius: '12px', margin: '1rem auto' }}
+            />
+            <h3 style={{ color: '#009765', fontSize: '1.5rem', marginTop: '1rem' }}>{result.title}</h3>
+            <pre style={{ whiteSpace: 'pre-wrap', fontSize: '1.1rem', color: '#444' }}>{result.desc}</pre>
+          </div>
+        );
+      })() : (
         <>
           <h3 style={{ color: '#222' }}>{questions[currentQuestion].question}</h3>
           {Object.entries(questions[currentQuestion].options).map(([key, text]) => (
