@@ -61,8 +61,8 @@ const questions = [
 const results = [
   {
     role: "探險家",
-    image: "/image/explorer.jpg", // 這是原本的圖片，可以保留或移除，如果沒有在其他地方使用
-    fullResultImage: "/image/explorer.jpg", // <--- 最終結果頁面使用的圖片
+    image: "/image/explorer.jpg",
+    fullResultImage: "/image/explorer.jpg",
     description: (
       <>
         <p>你是【<strong>探險家</strong>】</p>
@@ -75,7 +75,7 @@ const results = [
   {
     role: "規劃師",
     image: "/image/planner.jpg",
-    fullResultImage: "/image/planner.jpg", // <--- 最終結果頁面使用的圖片
+    fullResultImage: "/image/planner.jpg",
     description: (
       <>
         <p>你是【<strong>規劃師</strong>】</p>
@@ -89,7 +89,7 @@ const results = [
   {
     role: "守護者",
     image: "/image/guardian.jpg",
-    fullResultImage: "/image/guardian.jpg", // <--- 最終結果頁面使用的圖片
+    fullResultImage: "/image/guardian.jpg",
     description: (
       <>
         <p>你是【<strong>守護者</strong>】</p>
@@ -134,11 +134,15 @@ function App() {
       borderRadius: '12px',
       border: '2px solid #009765'
     }}>
-      <h1 style={{ color: '#009765', textAlign: 'center' }}>Z 世代保險探索測驗</h1>
+      {/* 判斷是否顯示標題 */}
+      {!showResult && ( // <--- 新增此條件判斷
+        <h1 style={{ color: '#009765', textAlign: 'center' }}>Z 世代保險探索測驗</h1>
+      )}
+
       {showResult ? (
         <div style={{
           backgroundColor: '#fff',
-          padding: '1.5rem',
+          padding: '0', // <--- 移除 padding，讓圖片完全貼合容器，如果圖片本身有邊距就不需要了
           borderRadius: '10px',
           textAlign: 'center',
           display: 'flex',
@@ -148,13 +152,13 @@ function App() {
         }}>
           {/* 只顯示這張圖片，完全取代原有內容 */}
           <img
-            src={getResult().fullResultImage} // 使用 fullResultImage 屬性
+            src={getResult().fullResultImage}
             alt={getResult().role + " 結果"}
             style={{
               width: '100%',
               height: 'auto',
-              maxWidth: '100%', // 確保圖片不會超出容器
-              borderRadius: '12px',
+              maxWidth: '100%',
+              borderRadius: '10px', // <--- 讓圖片也有圓角，與外部容器一致
               objectFit: 'contain'
             }}
           />
