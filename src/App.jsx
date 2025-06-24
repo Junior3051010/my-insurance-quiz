@@ -75,15 +75,16 @@ function App() {
     }
   }
 
-  const getResultImage = () => {
-    if (totalScore >= 40) {
-      return "/images/explorer.jpg"
-    } else if (totalScore >= 25) {
-      return "/images/planner.jpg"
-    } else {
-      return "/images/guardian.jpg"
-    }
+ const getResultImage = () => {
+  if (totalScore >= 40) {
+    return "/image/explorer.jpg"
+  } else if (totalScore >= 25) {
+    return "/image/planner.jpg"
+  } else {
+    return "/image/guardian.jpg"
   }
+}
+
 
   return (
     <div style={{
