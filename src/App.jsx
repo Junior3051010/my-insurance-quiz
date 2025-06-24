@@ -58,6 +58,46 @@ const questions = [
   }
 ]
 
+const results = [
+  {
+    role: "探險家",
+    image: "/image/explorer.jpg",
+    description: (
+      <>
+        <p>你是【<strong>探險家</strong>】</p>
+        <p>風險傾向：高風險偏好</p>
+        <p>建議保單：投資型、意外險</p>
+        <p>學習建議：多瞭解理財型保單</p>
+      </>
+    )
+  },
+  {
+    role: "規劃師",
+    image: "/image/planner.jpg",
+    description: (
+      <>
+        <p>你是【<strong>規劃師</strong>】</p>
+        <p>風險傾向：中風險中立</p>
+        <p>你重視規劃也願意為目標做準備</p>
+        <p>適合有回報的保障，兼顧醫療與健康</p>
+        <p>還本型保單、醫療險是你的夥伴！</p>
+      </>
+    )
+  },
+  {
+    role: "守護者",
+    image: "/image/guardian.jpg",
+    description: (
+      <>
+        <p>你是【<strong>守護者</strong>】</p>
+        <p>風險傾向：低風險保守</p>
+        <p>建議保單：醫療險、終身壽險</p>
+        <p>學習建議：了解基本保障與家庭責任</p>
+      </>
+    )
+  }
+]
+
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [totalScore, setTotalScore] = useState(0)
@@ -75,16 +115,11 @@ function App() {
     }
   }
 
- const getResultImage = () => {
-  if (totalScore >= 40) {
-    return "/image/explorer.jpg"
-  } else if (totalScore >= 25) {
-    return "/image/planner.jpg"
-  } else {
-    return "/image/guardian.jpg"
+  const getResult = () => {
+    if (totalScore >= 40) return results[0] // 探險家
+    if (totalScore >= 25) return results[1] // 規劃師
+    return results[2] // 守護者
   }
-}
-
 
   return (
     <div style={{
@@ -100,10 +135,13 @@ function App() {
       {showResult ? (
         <div style={{ backgroundColor: '#fff', padding: '1.5rem', borderRadius: '10px', textAlign: 'center' }}>
           <img
-            src={getResultImage()}
-            alt="結果圖示"
-            style={{ width: '100%', borderRadius: '12px', margin: '1rem auto' }}
+            src={getResult().image}
+            alt={getResult().role}
+            style={{ width: '100%', maxWidth: '300px', borderRadius: '12px', margin: '1rem auto' }}
           />
+          <div style={{ textAlign: 'left', marginTop: '1rem', fontSize: '16px', lineHeight: '1.6' }}>
+            {getResult().description}
+          </div>
         </div>
       ) : (
         <>
